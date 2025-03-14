@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,10 +35,7 @@ export default function RootLayout({
           {/* Main Content */}
           <main className='relative flex flex-col min-h-screen'>
             {/* Header */}
-            <header className='w-full h-20 bg-[#146C94] flex items-center px-8'>
-              <h1 className='text-white text-4xl'>Practice Pro</h1>
-            </header>
-
+            <Header />
             {/* Page Content */}
             <div className='relative flex-grow'>{children}</div>
           </main>
