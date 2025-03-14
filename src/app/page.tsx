@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <main className='w-full lg:max-w-7xl lg:mx-auto'>
+    <main>
       <div className='flex flex-col lg:grid lg:grid-cols-2 lg:py-16'>
         {/* Left content */}
         <div className='my-auto'>
