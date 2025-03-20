@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,22 +25,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className='relative bg-home-img bg-cover bg-center bg-fixed min-h-screen'>
-          {/* Background Overlay */}
-          <div className='absolute inset-0 bg-[#146C94]/50'></div>
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className='relative bg-home-img bg-cover bg-center bg-fixed min-h-screen'>
+            {/* Background Overlay */}
+            <div className='absolute inset-0 bg-foreground/50'></div>
 
-          {/* Main Content */}
-          <main className='relative flex flex-col min-h-screen'>
-            {/* Header */}
-            <Header />
-            {/* Page Content */}
-            <div className='relative flex-grow'>{children}</div>
-          </main>
-        </div>
+            {/* Main Content */}
+            <main className='relative flex flex-col min-h-screen'>
+              {/* Header */}
+              <Header />
+              {/* Page Content */}
+              <div className='flex-grow'>{children}</div>
+            </main>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

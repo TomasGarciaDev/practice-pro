@@ -16,7 +16,7 @@ export function NavButton({ icon: Icon, label, href }: Props) {
       size='icon'
       aria-label={label}
       title={label}
-      className='rounded-full [&_svg]:!size-6'
+      className='rounded-full'
       asChild
     >
       {href ? (
