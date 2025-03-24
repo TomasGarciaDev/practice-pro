@@ -15,8 +15,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Practice Pro",
+  title: {
+    template: "%s | Practice Pro",
+    default: "Practice Pro",
+  },
   description: "Your Best Music Practice Diary",
+  applicationName: "Practice Pro",
 };
 
 export default function RootLayout({
