@@ -1,11 +1,18 @@
-import { ListMusic } from "lucide-react";
+import { LayoutDashboard, ListMusic, LogOut } from "lucide-react";
 import {
   RegisterLink,
   LoginLink,
+  LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Button } from "@/components/ui/button";
+import { NavButton } from "@/components/NavButton";
 
-export default function Home() {
+export default async function Home() {
+  const { isAuthenticated } = getKindeServerSession();
+
+  const isUserAuthenticated = await isAuthenticated();
+
   return (
     <main>
       <div className='flex flex-col lg:grid lg:grid-cols-2 lg:py-16'>
@@ -24,17 +31,41 @@ export default function Home() {
               <ListMusic className='w-24 h-24 text-foreground' />
             </div>
 
-            <div className='flex flex-col w-full gap-6 items-center'>
-              Login
-              <Button asChild>
-                <LoginLink>Sign In</LoginLink>
-              </Button>
-              <div className='border-b border-foreground w-full'></div>
-              or Sign Up
-              <Button asChild>
-                <RegisterLink>Create Account</RegisterLink>
-              </Button>
-            </div>
+            {!isUserAuthenticated ? (
+              <div className='flex flex-col w-full gap-6 items-center'>
+                Login
+                <Button size='lg' asChild>
+                  <LoginLink>Sign In</LoginLink>
+                </Button>
+                <div className='border-b border-foreground w-full'></div>
+                or Sign Up
+                <Button size='lg' asChild>
+                  <RegisterLink>Create Account</RegisterLink>
+                </Button>
+              </div>
+            ) : (
+              <div className='flex flex-col w-full gap-6 items-center'>
+                Go to Dashboard
+                <NavButton
+                  href='/dashboard'
+                  label='Dashboard'
+                  icon={LayoutDashboard}
+                />
+                <div className='border-b border-foreground w-full'></div>
+                LogOut
+                <Button
+                  variant='ghost'
+                  size='icon'
+                  aria-label='LogOut'
+                  title='LogOut'
+                  className='rounded-full'
+                >
+                  <LogoutLink>
+                    <LogOut />
+                  </LogoutLink>
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </div>
