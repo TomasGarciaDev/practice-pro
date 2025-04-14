@@ -30,10 +30,11 @@ CREATE TABLE "practice_routines" (
 --> statement-breakpoint
 CREATE TABLE "users" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"name" varchar(100) NOT NULL,
+	"first_name" varchar(100) NOT NULL,
+	"last_name" varchar(100) NOT NULL,
 	"email" varchar(100) NOT NULL,
 	"instrument" varchar(50),
-	"achieved_goals" integer,
+	"achieved_goals" integer DEFAULT 0,
 	"last_login" timestamp,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,

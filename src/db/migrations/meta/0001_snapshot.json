@@ -1,6 +1,6 @@
 {
-  "id": "02adf0c2-1c6c-4763-801c-7705ea942148",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "35fca91c-1d82-4793-bc7c-fc9c7f33aade",
+  "prevId": "0994d3a8-b35e-49cd-9818-8c7cea806f2f",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -241,8 +241,20 @@
           "primaryKey": true,
           "notNull": true
         },
-        "name": {
-          "name": "name",
+        "kinde_id": {
+          "name": "kinde_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "last_name": {
+          "name": "last_name",
           "type": "varchar(100)",
           "primaryKey": false,
           "notNull": true
@@ -263,7 +275,8 @@
           "name": "achieved_goals",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "default": 0
         },
         "last_login": {
           "name": "last_login",
@@ -290,6 +303,13 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
+        "users_kinde_id_unique": {
+          "name": "users_kinde_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "kinde_id"
+          ]
+        },
         "users_email_unique": {
           "name": "users_email_unique",
           "nullsNotDistinct": false,

@@ -11,10 +11,12 @@ import { relations } from "drizzle-orm";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
-  name: varchar("name", { length: 100 }).notNull(),
+  kinde_id: varchar("kinde_id", { length: 255 }).notNull().unique(),
+  firstName: varchar("first_name", { length: 100 }).notNull(),
+  lastName: varchar("last_name", { length: 100 }).notNull(),
   email: varchar("email", { length: 100 }).notNull().unique(),
   instrument: varchar("instrument", { length: 50 }),
-  achievedGoals: integer("achieved_goals"),
+  achievedGoals: integer("achieved_goals").default(0),
   lastLogin: timestamp("last_login"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
