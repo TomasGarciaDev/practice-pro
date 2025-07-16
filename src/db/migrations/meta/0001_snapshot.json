@@ -78,12 +78,8 @@
           "name": "practice_items_user_id_users_id_fk",
           "tableFrom": "practice_items",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -91,12 +87,8 @@
           "name": "practice_items_practice_routine_id_practice_routines_id_fk",
           "tableFrom": "practice_items",
           "tableTo": "practice_routines",
-          "columnsFrom": [
-            "practice_routine_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["practice_routine_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -155,12 +147,8 @@
           "name": "practice_logs_practice_item_id_practice_items_id_fk",
           "tableFrom": "practice_logs",
           "tableTo": "practice_items",
-          "columnsFrom": [
-            "practice_item_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["practice_item_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -215,12 +203,8 @@
           "name": "practice_routines_user_id_users_id_fk",
           "tableFrom": "practice_routines",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -306,16 +290,12 @@
         "users_kinde_id_unique": {
           "name": "users_kinde_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "kinde_id"
-          ]
+          "columns": ["kinde_id"]
         },
         "users_email_unique": {
           "name": "users_email_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"]
         }
       },
       "policies": {},

@@ -2,6 +2,7 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import { JwtPayload } from "jsonwebtoken";
 import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 /**
  * Creates a new user in the database from KindeAuth webhook data
@@ -69,5 +70,47 @@ export async function userExists(kindeId: string) {
   } catch (error) {
     console.error("Error checking if user exists:", error);
     return false;
+  }
+}
+
+/**
+ * Updates a user's information in the database
+ *
+ * @param userId The database ID of the user to update
+ * @param userData The user data to update
+ * @returns The updated user or null if update failed
+ */
+export async function updateUser(
+  userId: number,
+  userData: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    instrument?: string | null;
+  }
+) {
+  try {
+    const updatedUser = await db
+      .update(users)
+      .set({
+        ...userData,
+        updatedAt: new Date(),
+      })
+      .where(eq(users.id, userId))
+      .returning();
+
+    if (updatedUser.length === 0) {
+      console.error("No user found with ID:", userId);
+      return null;
+    }
+
+    // Revalidate the dashboard page to reflect the changes
+    revalidatePath("/dashboard");
+
+    console.log("User updated successfully:", updatedUser[0]);
+    return updatedUser[0];
+  } catch (error) {
+    console.error("Error updating user:", error);
+    return null;
   }
 }
