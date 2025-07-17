@@ -63,23 +63,7 @@ export default function UserCard({ user }: { user: User }) {
             </p>
           </div>
         </div>
-        <div className='flex justify-end '>
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-              <Button>Edit Profile</Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle className='text-2xl font-semibold'>
-                  Edit Profile Information
-                </DialogTitle>
-              </DialogHeader>
-              <DialogDescription>
-                <UserAboutForm user={user} />
-              </DialogDescription>
-            </DialogContent>
-          </Dialog>
-        </div>
+        <UserAboutForm user={user} open={open} setOpen={setOpen} />
       </div>
     </>
   );

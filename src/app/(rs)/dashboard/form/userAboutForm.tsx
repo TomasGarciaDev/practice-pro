@@ -3,6 +3,15 @@
 import { useState, useTransition } from "react";
 import { updateUser } from "@/app/actions";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
 
 type User = {
   id: number;
@@ -17,7 +26,15 @@ type User = {
   updatedAt: Date;
 };
 
-export default function UserAboutForm({ user }: { user: User }) {
+export default function UserAboutForm({
+  user,
+  open,
+  setOpen,
+}: {
+  user: User;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}) {
   const [isPending, startTransition] = useTransition();
   const [formData, setFormData] = useState({
     firstName: user.firstName,
@@ -49,6 +66,10 @@ export default function UserAboutForm({ user }: { user: User }) {
 
         if (result) {
           setMessage("Profile updated successfully!");
+          setTimeout(() => {
+            setOpen(false);
+            setMessage(null);
+          }, 1000);
         } else {
           setMessage("Failed to update profile. Please try again.");
         }
@@ -68,107 +89,118 @@ export default function UserAboutForm({ user }: { user: User }) {
   }
 
   return (
-    <div className=' bg-background/70 rounded-xl w-full mx-auto my-8'>
-      {message && (
-        <div
-          className={`p-3 mb-4 rounded ${
-            message.includes("success")
-              ? "bg-green-100 text-green-800"
-              : "bg-red-100 text-red-800"
-          }`}
-        >
-          {message}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} className='space-y-4'>
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-          <div>
-            <label
-              htmlFor='firstName'
-              className='block text-sm font-medium mb-1'
-            >
-              First Name
-            </label>
-            <input
-              type='text'
-              id='firstName'
-              name='firstName'
-              value={formData.firstName}
-              onChange={handleChange}
-              className='w-full p-2 border rounded-md'
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor='lastName'
-              className='block text-sm font-medium mb-1'
-            >
-              Last Name
-            </label>
-            <input
-              type='text'
-              id='lastName'
-              name='lastName'
-              value={formData.lastName}
-              onChange={handleChange}
-              className='w-full p-2 border rounded-md'
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor='email' className='block text-sm font-medium mb-1'>
-              Email
-            </label>
-            <input
-              type='email'
-              id='email'
-              name='email'
-              value={formData.email}
-              onChange={handleChange}
-              className='w-full p-2 border rounded-md'
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor='instrument'
-              className='block text-sm font-medium mb-1'
-            >
-              Instrument
-            </label>
-            <input
-              type='text'
-              id='instrument'
-              name='instrument'
-              value={formData.instrument}
-              onChange={handleChange}
-              className='w-full p-2 border rounded-md'
-            />
-          </div>
-        </div>
-        <div className='flex space-x-3 mt-6'>
-          <Button type='submit' disabled={isPending}>
-            {isPending ? "Saving..." : "Save Changes"}
-          </Button>
-          <Button
-            type='button'
-            variant='outline'
-            onClick={() => {
-              setFormData({
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                instrument: user.instrument || "",
-              });
-              setMessage(null);
-            }}
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button>Edit Profile</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className='text-2xl font-semibold'>
+            Edit Profile Information
+          </DialogTitle>
+        </DialogHeader>
+        {message && (
+          <div
+            className={`p-3 mb-4 rounded ${
+              message.includes("success")
+                ? "bg-green-100 text-green-800"
+                : "bg-red-100 text-red-800"
+            }`}
           >
-            Cancel
-          </Button>
-        </div>
-      </form>
-    </div>
+            {message}
+          </div>
+        )}
+        <form onSubmit={handleSubmit} className='space-y-4'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div>
+              <label
+                htmlFor='firstName'
+                className='block text-sm font-medium mb-1'
+              >
+                First Name
+              </label>
+              <input
+                type='text'
+                id='firstName'
+                name='firstName'
+                value={formData.firstName}
+                onChange={handleChange}
+                className='w-full p-2 border rounded-md'
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor='lastName'
+                className='block text-sm font-medium mb-1'
+              >
+                Last Name
+              </label>
+              <input
+                type='text'
+                id='lastName'
+                name='lastName'
+                value={formData.lastName}
+                onChange={handleChange}
+                className='w-full p-2 border rounded-md'
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor='email' className='block text-sm font-medium mb-1'>
+                Email
+              </label>
+              <input
+                type='email'
+                id='email'
+                name='email'
+                value={formData.email}
+                onChange={handleChange}
+                className='w-full p-2 border rounded-md'
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor='instrument'
+                className='block text-sm font-medium mb-1'
+              >
+                Instrument
+              </label>
+              <input
+                type='text'
+                id='instrument'
+                name='instrument'
+                value={formData.instrument}
+                onChange={handleChange}
+                className='w-full p-2 border rounded-md'
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button type='submit' disabled={isPending}>
+              {isPending ? "Saving..." : "Save Changes"}
+            </Button>
+            <DialogClose asChild>
+              <Button
+                type='button'
+                variant='outline'
+                onClick={() => {
+                  setFormData({
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    instrument: user.instrument || "",
+                  });
+                  setMessage(null);
+                }}
+              >
+                Cancel
+              </Button>
+            </DialogClose>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }
