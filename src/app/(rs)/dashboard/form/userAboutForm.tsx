@@ -25,6 +25,15 @@ type User = {
   updatedAt: Date;
 };
 
+function getInitialFormData(user: User) {
+  return {
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    instrument: user.instrument || "",
+  };
+}
+
 export default function UserAboutForm({
   user,
   open,
@@ -35,12 +44,7 @@ export default function UserAboutForm({
   setOpen: (open: boolean) => void;
 }) {
   const [isPending, startTransition] = useTransition();
-  const [formData, setFormData] = useState({
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email,
-    instrument: user.instrument || "",
-  });
+  const [formData, setFormData] = useState(getInitialFormData(user));
   const [message, setMessage] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -188,12 +192,7 @@ export default function UserAboutForm({
                 type='button'
                 variant='outline'
                 onClick={() => {
-                  setFormData({
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    email: user.email,
-                    instrument: user.instrument || "",
-                  });
+                  setFormData(getInitialFormData(user));
                   setMessage(null);
                 }}
                 aria-label='Cancel'

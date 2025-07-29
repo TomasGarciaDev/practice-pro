@@ -19,6 +19,7 @@ export type User = {
 
 export default function UserCard({ user }: { user: User }) {
   const [open, setOpen] = useState(false);
+
   return (
     <>
       <div className='flex justify-between items-end mb-6 text-2xl'>
