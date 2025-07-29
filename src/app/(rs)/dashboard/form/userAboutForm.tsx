@@ -11,6 +11,8 @@ import {
   DialogTitle,
   DialogClose,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 type User = {
   id: number;
@@ -115,67 +117,67 @@ export default function UserAboutForm({
         <form onSubmit={handleSubmit} className='space-y-4'>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
             <div>
-              <label
+              <Label
                 htmlFor='firstName'
                 className='block text-sm font-medium mb-1'
               >
                 First Name
-              </label>
-              <input
+              </Label>
+              <Input
                 type='text'
                 id='firstName'
                 name='firstName'
                 value={formData.firstName}
                 onChange={handleChange}
-                className='w-full p-2 border rounded-md'
+                className='bg-foreground/50'
                 required
               />
             </div>
             <div>
-              <label
+              <Label
                 htmlFor='lastName'
                 className='block text-sm font-medium mb-1'
               >
                 Last Name
-              </label>
-              <input
+              </Label>
+              <Input
                 type='text'
                 id='lastName'
                 name='lastName'
                 value={formData.lastName}
                 onChange={handleChange}
-                className='w-full p-2 border rounded-md'
+                className='bg-foreground/50'
                 required
               />
             </div>
             <div>
-              <label htmlFor='email' className='block text-sm font-medium mb-1'>
+              <Label htmlFor='email' className='block text-sm font-medium mb-1'>
                 Email
-              </label>
-              <input
+              </Label>
+              <Input
                 type='email'
                 id='email'
                 name='email'
                 value={formData.email}
                 onChange={handleChange}
-                className='w-full p-2 border rounded-md'
+                className='bg-foreground/50'
                 required
               />
             </div>
             <div>
-              <label
+              <Label
                 htmlFor='instrument'
                 className='block text-sm font-medium mb-1'
               >
                 Instrument
-              </label>
-              <input
+              </Label>
+              <Input
                 type='text'
                 id='instrument'
                 name='instrument'
                 value={formData.instrument}
                 onChange={handleChange}
-                className='w-full p-2 border rounded-md'
+                className='bg-foreground/50'
               />
             </div>
           </div>
