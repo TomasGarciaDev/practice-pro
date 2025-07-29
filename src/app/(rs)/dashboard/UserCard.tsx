@@ -34,7 +34,7 @@ export default function UserCard({ user }: { user: User }) {
 
         <div>
           <p className='font-medium text-foreground/70'>
-            Goals Achieved: {user.achievedGoals}
+            Goals Achieved: {user.achievedGoals || 0}
           </p>
         </div>
       </div>

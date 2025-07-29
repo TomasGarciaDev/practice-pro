@@ -9,7 +9,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
 
@@ -90,9 +89,7 @@ export default function UserAboutForm({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button>Edit Profile</Button>
-      </DialogTrigger>
+      <Button onClick={() => setOpen(true)}>Edit Profile</Button>
       <DialogContent>
         <DialogHeader>
           <DialogTitle className='text-2xl font-semibold'>
