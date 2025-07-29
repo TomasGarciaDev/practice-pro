@@ -98,6 +98,7 @@ export default function UserAboutForm({
         </DialogHeader>
         {message && (
           <div
+            aria-live='polite'
             className={`p-3 mb-4 rounded ${
               message.includes("success")
                 ? "bg-green-100 text-green-800"
@@ -175,7 +176,11 @@ export default function UserAboutForm({
             </div>
           </div>
           <DialogFooter>
-            <Button type='submit' disabled={isPending}>
+            <Button
+              type='submit'
+              disabled={isPending}
+              aria-label='Save Changes'
+            >
               {isPending ? "Saving..." : "Save Changes"}
             </Button>
             <DialogClose asChild>
@@ -191,6 +196,7 @@ export default function UserAboutForm({
                   });
                   setMessage(null);
                 }}
+                aria-label='Cancel'
               >
                 Cancel
               </Button>

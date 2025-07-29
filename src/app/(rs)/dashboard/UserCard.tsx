@@ -1,15 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { User } from "lucide-react";
-import UserAboutForm from "./form/userAboutForm";
+import UserAboutForm from "./form/UserAboutForm";
 import { useState } from "react";
 
 export type User = {
