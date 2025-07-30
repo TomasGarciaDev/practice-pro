@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 type User = {
   id: number;
@@ -47,7 +49,8 @@ export default function UserAboutForm({
 }) {
   const [isPending, startTransition] = useTransition();
   const [formData, setFormData] = useState(getInitialFormData(user));
-  const [message, setMessage] = useState<string | null>(null);
+
+  const { toast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -70,17 +73,38 @@ export default function UserAboutForm({
         });
 
         if (result) {
-          setMessage("Profile updated successfully!");
+          toast({
+            variant: "default",
+            title: "Success",
+            description: "Profile updated successfully!",
+          });
           setTimeout(() => {
             setOpen(false);
-            setMessage(null);
           }, 1000);
         } else {
-          setMessage("Failed to update profile. Please try again.");
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: "Failed to update profile.",
+            action: (
+              <ToastAction altText='Please try again'>
+                Please try again
+              </ToastAction>
+            ),
+          });
         }
       } catch (error) {
         console.error("Error updating user:", error);
-        setMessage("An error occurred while updating your profile.");
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "An error occurred while updating your profile.",
+          action: (
+            <ToastAction altText='Please try again'>
+              Please try again
+            </ToastAction>
+          ),
+        });
       }
     });
   };
@@ -102,18 +126,7 @@ export default function UserAboutForm({
             Edit Profile Information
           </DialogTitle>
         </DialogHeader>
-        {message && (
-          <div
-            aria-live='polite'
-            className={`p-3 mb-4 rounded ${
-              message.includes("success")
-                ? "bg-green-100 text-green-800"
-                : "bg-red-100 text-red-800"
-            }`}
-          >
-            {message}
-          </div>
-        )}
+
         <form onSubmit={handleSubmit} className='space-y-4'>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
             <div>
@@ -195,7 +208,6 @@ export default function UserAboutForm({
                 variant='outline'
                 onClick={() => {
                   setFormData(getInitialFormData(user));
-                  setMessage(null);
                 }}
                 aria-label='Cancel'
               >

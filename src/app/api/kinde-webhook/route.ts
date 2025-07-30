@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import jwksClient from "jwks-rsa";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { db } from "@/db";
-import { users } from "@/db/schema";
 import { createUser, userExists } from "@/lib/user-actions";
 
 const client = jwksClient({

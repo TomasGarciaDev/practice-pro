@@ -7,10 +7,6 @@ export const metadata = {
   description: "Dashboard Page",
 };
 
-const editUser = async () => {
-  console.log("Edit User Function Called");
-};
-
 export default async function Dashboard() {
   const { getUser: getKindUser } = getKindeServerSession();
   const { id: userKindId } = await getKindUser();
